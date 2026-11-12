@@ -1,0 +1,15 @@
+[project]
+name = "rover"
+version = "0.1.0"
+description = "Hazard-aware rover path planning with (Double) Deep Q-Learning"
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.26", "gymnasium>=1.0", "torch>=2.2", "matplotlib>=3.8"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[tool.setuptools]
+packages = ["rover"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
