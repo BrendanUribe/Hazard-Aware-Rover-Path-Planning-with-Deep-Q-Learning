@@ -48,13 +48,14 @@ class DQNConfig:
     eps_end: float = 0.05
     eps_decay_episodes: int = 5_000
     grad_clip: float = 10.0
+    hidden: int = 256
 
 
 class DQNAgent:
     def __init__(self, obs_dim: int, cfg: DQNConfig, n_actions: int = 4, device: str = "cpu"):
         self.cfg, self.n_actions, self.device = cfg, n_actions, torch.device(device)
-        self.q = QNet(obs_dim, n_actions).to(self.device)
-        self.target = QNet(obs_dim, n_actions).to(self.device)
+        self.q = QNet(obs_dim, n_actions, cfg.hidden).to(self.device)
+        self.target = QNet(obs_dim, n_actions, cfg.hidden).to(self.device)
         self.target.load_state_dict(self.q.state_dict())
         self.opt = torch.optim.Adam(self.q.parameters(), lr=cfg.lr)
         self.buffer = ReplayBuffer(cfg.buffer_size)

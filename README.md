@@ -150,15 +150,76 @@ All experiments run **CPU-only** on personal laptops.
 
 ## Getting Started
 
+### 1. Install
 ```bash
-python -m venv .venv && source .venv/bin/activate
-pip install -e ".[dev]"
-pytest                                   # environment + agent tests
-python scripts/train_dqn.py --episodes 2000 --seed 0            # Double DQN (default)
-python scripts/train_dqn.py --episodes 2000 --seed 0 --vanilla  # vanilla DQN ablation
+git clone https://github.com/BrendanUribe/Hazard-Aware-Rover-Path-Planning-with-Deep-Q-Learning.git
+cd Hazard-Aware-Rover-Path-Planning-with-Deep-Q-Learning
+py -m pip install -e ".[dev]"        # Windows; use `python -m pip ...` on macOS/Linux
 ```
+Use the same interpreter (`py` or `python`) for every command below, otherwise you may get `No module named 'rover'`. A virtual environment is optional (`python -m venv .venv`).
 
-Layout: `rover/env.py` (Gymnasium env), `rover/mapgen.py` (feasible random maps), `rover/dqn.py` (Double DQN agent), `rover/evaluate.py` (greedy eval on unseen maps), `scripts/` (training), `tests/`.
+### 2. Run the tests
+```bash
+pytest                               # 9 tests: environment rules + a Double DQN update runs
+```
+These check the environment and that the update runs; they do not show that the agent learns.
+
+### 3. Look at the environment (no training needed)
+```bash
+py scripts/visualize.py --seed 0 --n 3 --out maps.png
+```
+Draws random maps with a rover taking random moves. Legend: beige normal, tan gravel (slip), gray boulder, black x crater, green charger, yellow goal, `S` start, blue line the path, red star where the rover ended. The title gives the outcome, steps used and battery left. Change `--seed` for different maps. To print one map as text: `py -c "from rover import RoverEnv; e=RoverEnv(); e.reset(seed=1); print(e.render())"`.
+
+### 4. Train
+```bash
+py scripts/train_dqn.py --episodes 300 --eval-every 100 --out runs      # ~5 s pipeline check, expect no learning
+py scripts/train_dqn.py --episodes 5000 --eval-every 500 --out runs     # first real test
+py scripts/train_dqn.py --episodes 20000 --eval-every 1000 --seed 0     # full protocol; repeat with --seed 1 and 2
+py scripts/train_dqn.py --episodes 5000 --seed 0 --vanilla              # vanilla DQN ablation
+```
+Flags: `--episodes`, `--seed`, `--vanilla` (plain DQN instead of Double DQN), `--p-slip` (default 0.30), `--b0` (initial battery, default 15), `--eval-every`, `--out`.
+
+Each evaluation prints one JSON line (greedy policy, 5 unseen maps x 20 missions): `success` (the main number, want it to rise above 0), `crater`, `battery` (ran out), `timeout`, `mean_steps`, `mean_return`, `train_return`, `eps` (exploration rate).
+
+**Outputs and overwriting:** results go to `<out>/<method>_seed<N>/` (e.g. `runs/ddqn_seed0/`) as `log.json` and `model.pt`. `model.pt` is overwritten at every evaluation, and a new run with the same `--out`, method and seed overwrites the old files. Use a different `--out` (e.g. `runs_5000`) to keep results apart.
+
+### 5. View a trained rover
+```bash
+py scripts/visualize.py --seed 0 --n 3 --model runs/ddqn_seed0/model.pt --out trained.png
+```
+Without `--model` the rover moves randomly (the random baseline).
+
+### Notes
+- Episodes are short (about 15 steps when the battery runs out), so 300 episodes takes seconds and 20,000 should take minutes on a CPU. A GPU is not needed; the code runs on CPU only.
+- If `success` stays at 0 after a few thousand episodes, the agent is not learning this task yet; debug on a single fixed map or an easier setup (more battery) before longer runs.
+
+Layout: `rover/env.py` (Gymnasium env), `rover/mapgen.py` (feasible random maps), `rover/dqn.py` (Double DQN agent), `rover/evaluate.py` (greedy eval on unseen maps), `rover/viz.py` (map drawing), `scripts/` (training, visualization), `tests/`.
+
+**PPO (branch `PPO`):** `rover/ppo.py` holds a PPO-Clip actor-critic with GAE (AE 696 Lecture 18), trained with
+```bash
+py scripts/train_ppo.py --iterations 500 --seed 0
+py scripts/visualize.py --seed 0 --n 3 --algo ppo --model runs/ppo_seed0/model.pt --out trained_ppo.png
+```
+One iteration collects `n_envs x n_steps` transitions, computes GAE advantages and critic targets, then runs `--epochs` minibatch passes with the clipped objective. Logs go to `runs/ppo_seed<N>/`.
+
+**Q-table baseline:** `scripts/train_qlearn.py` trains tabular Q-learning (or `--sarsa`) on ONE fixed map, with state = (row, col, battery). It is an easier problem than PPO/DQN, which are tested on unseen maps.
+
+**Sweeps and report figures:**
+```bash
+# full sweep used for the results (900 runs: 60 configs x 5 sizes x 3 seeds; ~1.5 days on a laptop)
+py scripts/sweep.py --algo all --n-configs 20 --sizes 4 5 6 8 10 --budget-mult 8:2 10:4 --seeds 0 1 2 --jobs 6 --timeout-min 240 --out sweeps/full
+# small quick version
+py scripts/sweep.py --algo all --n-configs 20 --sizes 4 5 6 8 --seeds 0 1 --jobs 4 --out sweeps/sizes
+```
+The sweep is resumable: re-run the same command to continue. To pause cleanly, create a file named `STOP` inside the output folder (delete it to resume).
+
+**Generating the report (no retraining):**
+```bash
+py scripts/sweep.py --out sweeps/full --summarize-only   # rebuild summary.csv / boundary.csv / marginals.csv
+py scripts/report.py --sweep sweeps/full                 # figures, trajectory maps, GIFs -> sweeps/full/report/
+```
+The committed `sweeps/full/*.csv|json` and `sweeps/full/report/` are the finished results. The per-run folders (`sweeps/full/runs/`, ~300 MB with model weights) are git-ignored, so `report.py` needs a local copy of them to regenerate the maps, GIFs and learning curves; `summary.csv` and the boundary/marginal tables are in the repo regardless.
+`sweep.py` tries many hyperparameter settings for PPO, DQN and Q-learning across map sizes and seeds (resumable; results in `summary.csv`, `boundary.csv`, `marginals.csv`). `report.py` turns finished runs into PNG/PDF figures (boundary plot, learning curves, outcome bars, parameter effects), trajectory maps and GIF rollouts without retraining. For a single run: `py scripts/report.py --run runs_s6b/ppo_seed0 --algo ppo --size 6 --p-slip 0.3 --b0 15`.
 
 **Double DQN:** the target is $y = r + \gamma\, Q_{target}(s', \arg\max_a Q_{online}(s', a))$, which reduces the Q-value overestimation of vanilla DQN. Vanilla DQN is kept behind `--vanilla` for an ablation.
 

@@ -1,0 +1,962 @@
+[
+ {
+  "cfg_id": "ppo_000",
+  "algo": "ppo",
+  "params": {
+   "lr": 0.0003,
+   "gamma": 0.99,
+   "gae_lambda": 0.95,
+   "clip": 0.2,
+   "ent_coef": 0.01,
+   "ent_decay": false,
+   "n_envs": 8,
+   "n_steps": 128,
+   "batch_size": 256,
+   "epochs": 4,
+   "target_kl": 0.02,
+   "reward_scale": 0.05,
+   "hidden": 256
+  }
+ },
+ {
+  "cfg_id": "ppo_001",
+  "algo": "ppo",
+  "params": {
+   "lr": 0.0007,
+   "gamma": 0.995,
+   "gae_lambda": 0.9,
+   "clip": 0.2,
+   "ent_coef": 0.1,
+   "ent_decay": true,
+   "n_envs": 16,
+   "n_steps": 128,
+   "batch_size": 256,
+   "epochs": 4,
+   "target_kl": 0.05,
+   "reward_scale": 0.01,
+   "hidden": 256
+  }
+ },
+ {
+  "cfg_id": "ppo_002",
+  "algo": "ppo",
+  "params": {
+   "lr": 0.00014,
+   "gamma": 0.99,
+   "gae_lambda": 0.9,
+   "clip": 0.3,
+   "ent_coef": 0.03,
+   "ent_decay": false,
+   "n_envs": 16,
+   "n_steps": 64,
+   "batch_size": 512,
+   "epochs": 3,
+   "target_kl": 0.05,
+   "reward_scale": 0.05,
+   "hidden": 128
+  }
+ },
+ {
+  "cfg_id": "ppo_003",
+  "algo": "ppo",
+  "params": {
+   "lr": 0.00036,
+   "gamma": 0.995,
+   "gae_lambda": 0.95,
+   "clip": 0.2,
+   "ent_coef": 0.1,
+   "ent_decay": false,
+   "n_envs": 32,
+   "n_steps": 128,
+   "batch_size": 256,
+   "epochs": 8,
+   "target_kl": 0.02,
+   "reward_scale": 0.01,
+   "hidden": 256
+  }
+ },
+ {
+  "cfg_id": "ppo_004",
+  "algo": "ppo",
+  "params": {
+   "lr": 0.00082,
+   "gamma": 0.99,
+   "gae_lambda": 0.98,
+   "clip": 0.2,
+   "ent_coef": 0.0,
+   "ent_decay": true,
+   "n_envs": 16,
+   "n_steps": 64,
+   "batch_size": 512,
+   "epochs": 4,
+   "target_kl": 0.05,
+   "reward_scale": 0.01,
+   "hidden": 64
+  }
+ },
+ {
+  "cfg_id": "ppo_005",
+  "algo": "ppo",
+  "params": {
+   "lr": 0.00083,
+   "gamma": 0.99,
+   "gae_lambda": 0.9,
+   "clip": 0.1,
+   "ent_coef": 0.1,
+   "ent_decay": true,
+   "n_envs": 8,
+   "n_steps": 64,
+   "batch_size": 256,
+   "epochs": 8,
+   "target_kl": 0.02,
+   "reward_scale": 0.01,
+   "hidden": 128
+  }
+ },
+ {
+  "cfg_id": "ppo_006",
+  "algo": "ppo",
+  "params": {
+   "lr": 0.00036,
+   "gamma": 0.999,
+   "gae_lambda": 0.9,
+   "clip": 0.3,
+   "ent_coef": 0.03,
+   "ent_decay": false,
+   "n_envs": 32,
+   "n_steps": 256,
+   "batch_size": 512,
+   "epochs": 4,
+   "target_kl": 0.02,
+   "reward_scale": 0.01,
+   "hidden": 256
+  }
+ },
+ {
+  "cfg_id": "ppo_007",
+  "algo": "ppo",
+  "params": {
+   "lr": 0.00063,
+   "gamma": 0.995,
+   "gae_lambda": 0.98,
+   "clip": 0.1,
+   "ent_coef": 0.03,
+   "ent_decay": false,
+   "n_envs": 8,
+   "n_steps": 64,
+   "batch_size": 128,
+   "epochs": 8,
+   "target_kl": 0.05,
+   "reward_scale": 0.05,
+   "hidden": 128
+  }
+ },
+ {
+  "cfg_id": "ppo_008",
+  "algo": "ppo",
+  "params": {
+   "lr": 0.00012,
+   "gamma": 0.999,
+   "gae_lambda": 0.9,
+   "clip": 0.1,
+   "ent_coef": 0.0,
+   "ent_decay": false,
+   "n_envs": 32,
+   "n_steps": 256,
+   "batch_size": 512,
+   "epochs": 4,
+   "target_kl": 0.05,
+   "reward_scale": 0.1,
+   "hidden": 128
+  }
+ },
+ {
+  "cfg_id": "ppo_009",
+  "algo": "ppo",
+  "params": {
+   "lr": 0.00033,
+   "gamma": 0.99,
+   "gae_lambda": 0.9,
+   "clip": 0.3,
+   "ent_coef": 0.1,
+   "ent_decay": true,
+   "n_envs": 32,
+   "n_steps": 128,
+   "batch_size": 256,
+   "epochs": 4,
+   "target_kl": 0.05,
+   "reward_scale": 0.1,
+   "hidden": 256
+  }
+ },
+ {
+  "cfg_id": "ppo_010",
+  "algo": "ppo",
+  "params": {
+   "lr": 0.00083,
+   "gamma": 0.995,
+   "gae_lambda": 0.9,
+   "clip": 0.2,
+   "ent_coef": 0.1,
+   "ent_decay": false,
+   "n_envs": 16,
+   "n_steps": 256,
+   "batch_size": 512,
+   "epochs": 4,
+   "target_kl": 0.0,
+   "reward_scale": 0.01,
+   "hidden": 64
+  }
+ },
+ {
+  "cfg_id": "ppo_011",
+  "algo": "ppo",
+  "params": {
+   "lr": 0.00054,
+   "gamma": 0.99,
+   "gae_lambda": 0.98,
+   "clip": 0.1,
+   "ent_coef": 0.03,
+   "ent_decay": false,
+   "n_envs": 16,
+   "n_steps": 128,
+   "batch_size": 128,
+   "epochs": 3,
+   "target_kl": 0.0,
+   "reward_scale": 0.1,
+   "hidden": 64
+  }
+ },
+ {
+  "cfg_id": "ppo_012",
+  "algo": "ppo",
+  "params": {
+   "lr": 0.00011,
+   "gamma": 0.999,
+   "gae_lambda": 0.98,
+   "clip": 0.3,
+   "ent_coef": 0.1,
+   "ent_decay": false,
+   "n_envs": 8,
+   "n_steps": 64,
+   "batch_size": 512,
+   "epochs": 3,
+   "target_kl": 0.05,
+   "reward_scale": 0.1,
+   "hidden": 64
+  }
+ },
+ {
+  "cfg_id": "ppo_013",
+  "algo": "ppo",
+  "params": {
+   "lr": 0.00025,
+   "gamma": 0.995,
+   "gae_lambda": 0.9,
+   "clip": 0.1,
+   "ent_coef": 0.1,
+   "ent_decay": false,
+   "n_envs": 8,
+   "n_steps": 64,
+   "batch_size": 512,
+   "epochs": 3,
+   "target_kl": 0.02,
+   "reward_scale": 0.01,
+   "hidden": 256
+  }
+ },
+ {
+  "cfg_id": "ppo_014",
+  "algo": "ppo",
+  "params": {
+   "lr": 0.00063,
+   "gamma": 0.999,
+   "gae_lambda": 0.9,
+   "clip": 0.3,
+   "ent_coef": 0.05,
+   "ent_decay": false,
+   "n_envs": 16,
+   "n_steps": 64,
+   "batch_size": 128,
+   "epochs": 3,
+   "target_kl": 0.05,
+   "reward_scale": 0.05,
+   "hidden": 128
+  }
+ },
+ {
+  "cfg_id": "ppo_015",
+  "algo": "ppo",
+  "params": {
+   "lr": 0.00027,
+   "gamma": 0.99,
+   "gae_lambda": 0.98,
+   "clip": 0.2,
+   "ent_coef": 0.0,
+   "ent_decay": false,
+   "n_envs": 32,
+   "n_steps": 128,
+   "batch_size": 128,
+   "epochs": 4,
+   "target_kl": 0.02,
+   "reward_scale": 0.1,
+   "hidden": 128
+  }
+ },
+ {
+  "cfg_id": "ppo_016",
+  "algo": "ppo",
+  "params": {
+   "lr": 0.00069,
+   "gamma": 0.999,
+   "gae_lambda": 0.9,
+   "clip": 0.3,
+   "ent_coef": 0.01,
+   "ent_decay": false,
+   "n_envs": 32,
+   "n_steps": 64,
+   "batch_size": 128,
+   "epochs": 4,
+   "target_kl": 0.05,
+   "reward_scale": 0.05,
+   "hidden": 64
+  }
+ },
+ {
+  "cfg_id": "ppo_017",
+  "algo": "ppo",
+  "params": {
+   "lr": 0.0004,
+   "gamma": 0.995,
+   "gae_lambda": 0.98,
+   "clip": 0.1,
+   "ent_coef": 0.0,
+   "ent_decay": true,
+   "n_envs": 32,
+   "n_steps": 128,
+   "batch_size": 512,
+   "epochs": 8,
+   "target_kl": 0.02,
+   "reward_scale": 0.1,
+   "hidden": 128
+  }
+ },
+ {
+  "cfg_id": "ppo_018",
+  "algo": "ppo",
+  "params": {
+   "lr": 0.00024,
+   "gamma": 0.999,
+   "gae_lambda": 0.95,
+   "clip": 0.1,
+   "ent_coef": 0.1,
+   "ent_decay": false,
+   "n_envs": 16,
+   "n_steps": 256,
+   "batch_size": 128,
+   "epochs": 4,
+   "target_kl": 0.05,
+   "reward_scale": 0.01,
+   "hidden": 256
+  }
+ },
+ {
+  "cfg_id": "ppo_019",
+  "algo": "ppo",
+  "params": {
+   "lr": 0.00019,
+   "gamma": 0.99,
+   "gae_lambda": 0.95,
+   "clip": 0.2,
+   "ent_coef": 0.1,
+   "ent_decay": true,
+   "n_envs": 32,
+   "n_steps": 128,
+   "batch_size": 512,
+   "epochs": 8,
+   "target_kl": 0.05,
+   "reward_scale": 0.01,
+   "hidden": 256
+  }
+ },
+ {
+  "cfg_id": "dqn_000",
+  "algo": "dqn",
+  "params": {
+   "lr": 0.001,
+   "gamma": 0.99,
+   "batch_size": 64,
+   "buffer_size": 100000,
+   "warmup": 1000,
+   "target_sync": 500,
+   "eps_end": 0.05,
+   "eps_decay_frac": 0.25,
+   "grad_clip": 10.0,
+   "hidden": 256,
+   "double": true
+  }
+ },
+ {
+  "cfg_id": "dqn_001",
+  "algo": "dqn",
+  "params": {
+   "lr": 0.00029,
+   "gamma": 0.999,
+   "batch_size": 64,
+   "buffer_size": 50000,
+   "warmup": 500,
+   "target_sync": 500,
+   "eps_end": 0.1,
+   "eps_decay_frac": 0.25,
+   "grad_clip": 1.0,
+   "hidden": 64,
+   "double": true
+  }
+ },
+ {
+  "cfg_id": "dqn_002",
+  "algo": "dqn",
+  "params": {
+   "lr": 0.00087,
+   "gamma": 0.99,
+   "batch_size": 128,
+   "buffer_size": 100000,
+   "warmup": 500,
+   "target_sync": 2000,
+   "eps_end": 0.1,
+   "eps_decay_frac": 0.5,
+   "grad_clip": 10.0,
+   "hidden": 256,
+   "double": true
+  }
+ },
+ {
+  "cfg_id": "dqn_003",
+  "algo": "dqn",
+  "params": {
+   "lr": 0.00018,
+   "gamma": 0.95,
+   "batch_size": 64,
+   "buffer_size": 50000,
+   "warmup": 1000,
+   "target_sync": 2000,
+   "eps_end": 0.1,
+   "eps_decay_frac": 0.5,
+   "grad_clip": 1.0,
+   "hidden": 64,
+   "double": false
+  }
+ },
+ {
+  "cfg_id": "dqn_004",
+  "algo": "dqn",
+  "params": {
+   "lr": 0.0003,
+   "gamma": 0.99,
+   "batch_size": 32,
+   "buffer_size": 100000,
+   "warmup": 500,
+   "target_sync": 200,
+   "eps_end": 0.1,
+   "eps_decay_frac": 0.1,
+   "grad_clip": 1.0,
+   "hidden": 128,
+   "double": false
+  }
+ },
+ {
+  "cfg_id": "dqn_005",
+  "algo": "dqn",
+  "params": {
+   "lr": 0.00029,
+   "gamma": 0.95,
+   "batch_size": 32,
+   "buffer_size": 50000,
+   "warmup": 5000,
+   "target_sync": 200,
+   "eps_end": 0.01,
+   "eps_decay_frac": 0.1,
+   "grad_clip": 1.0,
+   "hidden": 128,
+   "double": false
+  }
+ },
+ {
+  "cfg_id": "dqn_006",
+  "algo": "dqn",
+  "params": {
+   "lr": 0.001,
+   "gamma": 0.95,
+   "batch_size": 32,
+   "buffer_size": 100000,
+   "warmup": 1000,
+   "target_sync": 200,
+   "eps_end": 0.01,
+   "eps_decay_frac": 0.25,
+   "grad_clip": 10.0,
+   "hidden": 64,
+   "double": false
+  }
+ },
+ {
+  "cfg_id": "dqn_007",
+  "algo": "dqn",
+  "params": {
+   "lr": 0.00016,
+   "gamma": 0.999,
+   "batch_size": 128,
+   "buffer_size": 100000,
+   "warmup": 500,
+   "target_sync": 500,
+   "eps_end": 0.05,
+   "eps_decay_frac": 0.1,
+   "grad_clip": 1.0,
+   "hidden": 64,
+   "double": true
+  }
+ },
+ {
+  "cfg_id": "dqn_008",
+  "algo": "dqn",
+  "params": {
+   "lr": 0.001,
+   "gamma": 0.999,
+   "batch_size": 64,
+   "buffer_size": 100000,
+   "warmup": 5000,
+   "target_sync": 200,
+   "eps_end": 0.1,
+   "eps_decay_frac": 0.5,
+   "grad_clip": 10.0,
+   "hidden": 256,
+   "double": false
+  }
+ },
+ {
+  "cfg_id": "dqn_009",
+  "algo": "dqn",
+  "params": {
+   "lr": 0.00088,
+   "gamma": 0.99,
+   "batch_size": 128,
+   "buffer_size": 50000,
+   "warmup": 500,
+   "target_sync": 2000,
+   "eps_end": 0.1,
+   "eps_decay_frac": 0.25,
+   "grad_clip": 1.0,
+   "hidden": 64,
+   "double": true
+  }
+ },
+ {
+  "cfg_id": "dqn_010",
+  "algo": "dqn",
+  "params": {
+   "lr": 0.00025,
+   "gamma": 0.99,
+   "batch_size": 64,
+   "buffer_size": 50000,
+   "warmup": 1000,
+   "target_sync": 200,
+   "eps_end": 0.01,
+   "eps_decay_frac": 0.25,
+   "grad_clip": 1.0,
+   "hidden": 64,
+   "double": false
+  }
+ },
+ {
+  "cfg_id": "dqn_011",
+  "algo": "dqn",
+  "params": {
+   "lr": 0.00034,
+   "gamma": 0.999,
+   "batch_size": 32,
+   "buffer_size": 100000,
+   "warmup": 500,
+   "target_sync": 2000,
+   "eps_end": 0.1,
+   "eps_decay_frac": 0.1,
+   "grad_clip": 1.0,
+   "hidden": 128,
+   "double": true
+  }
+ },
+ {
+  "cfg_id": "dqn_012",
+  "algo": "dqn",
+  "params": {
+   "lr": 0.0018,
+   "gamma": 0.999,
+   "batch_size": 32,
+   "buffer_size": 100000,
+   "warmup": 1000,
+   "target_sync": 1000,
+   "eps_end": 0.05,
+   "eps_decay_frac": 0.25,
+   "grad_clip": 1.0,
+   "hidden": 64,
+   "double": false
+  }
+ },
+ {
+  "cfg_id": "dqn_013",
+  "algo": "dqn",
+  "params": {
+   "lr": 0.0005,
+   "gamma": 0.99,
+   "batch_size": 32,
+   "buffer_size": 100000,
+   "warmup": 500,
+   "target_sync": 2000,
+   "eps_end": 0.05,
+   "eps_decay_frac": 0.1,
+   "grad_clip": 10.0,
+   "hidden": 128,
+   "double": true
+  }
+ },
+ {
+  "cfg_id": "dqn_014",
+  "algo": "dqn",
+  "params": {
+   "lr": 0.0023,
+   "gamma": 0.999,
+   "batch_size": 128,
+   "buffer_size": 100000,
+   "warmup": 5000,
+   "target_sync": 200,
+   "eps_end": 0.01,
+   "eps_decay_frac": 0.1,
+   "grad_clip": 1.0,
+   "hidden": 256,
+   "double": true
+  }
+ },
+ {
+  "cfg_id": "dqn_015",
+  "algo": "dqn",
+  "params": {
+   "lr": 0.00012,
+   "gamma": 0.95,
+   "batch_size": 32,
+   "buffer_size": 100000,
+   "warmup": 5000,
+   "target_sync": 1000,
+   "eps_end": 0.05,
+   "eps_decay_frac": 0.25,
+   "grad_clip": 1.0,
+   "hidden": 128,
+   "double": true
+  }
+ },
+ {
+  "cfg_id": "dqn_016",
+  "algo": "dqn",
+  "params": {
+   "lr": 0.00035,
+   "gamma": 0.99,
+   "batch_size": 128,
+   "buffer_size": 50000,
+   "warmup": 1000,
+   "target_sync": 500,
+   "eps_end": 0.05,
+   "eps_decay_frac": 0.1,
+   "grad_clip": 1.0,
+   "hidden": 256,
+   "double": true
+  }
+ },
+ {
+  "cfg_id": "dqn_017",
+  "algo": "dqn",
+  "params": {
+   "lr": 0.0022,
+   "gamma": 0.99,
+   "batch_size": 128,
+   "buffer_size": 50000,
+   "warmup": 500,
+   "target_sync": 2000,
+   "eps_end": 0.05,
+   "eps_decay_frac": 0.25,
+   "grad_clip": 1.0,
+   "hidden": 256,
+   "double": true
+  }
+ },
+ {
+  "cfg_id": "dqn_018",
+  "algo": "dqn",
+  "params": {
+   "lr": 0.003,
+   "gamma": 0.95,
+   "batch_size": 128,
+   "buffer_size": 50000,
+   "warmup": 500,
+   "target_sync": 500,
+   "eps_end": 0.05,
+   "eps_decay_frac": 0.25,
+   "grad_clip": 10.0,
+   "hidden": 256,
+   "double": true
+  }
+ },
+ {
+  "cfg_id": "dqn_019",
+  "algo": "dqn",
+  "params": {
+   "lr": 0.00014,
+   "gamma": 0.999,
+   "batch_size": 64,
+   "buffer_size": 50000,
+   "warmup": 5000,
+   "target_sync": 2000,
+   "eps_end": 0.1,
+   "eps_decay_frac": 0.5,
+   "grad_clip": 10.0,
+   "hidden": 256,
+   "double": false
+  }
+ },
+ {
+  "cfg_id": "qlearn_000",
+  "algo": "qlearn",
+  "params": {
+   "alpha": 0.1,
+   "gamma": 0.99,
+   "eps_end": 0.05,
+   "eps_decay_frac": 0.5,
+   "q_init": 0.0,
+   "sarsa": false
+  }
+ },
+ {
+  "cfg_id": "qlearn_001",
+  "algo": "qlearn",
+  "params": {
+   "alpha": 0.18,
+   "gamma": 0.99,
+   "eps_end": 0.05,
+   "eps_decay_frac": 0.8,
+   "q_init": 100.0,
+   "sarsa": false
+  }
+ },
+ {
+  "cfg_id": "qlearn_002",
+  "algo": "qlearn",
+  "params": {
+   "alpha": 0.11,
+   "gamma": 0.95,
+   "eps_end": 0.01,
+   "eps_decay_frac": 0.5,
+   "q_init": 100.0,
+   "sarsa": true
+  }
+ },
+ {
+  "cfg_id": "qlearn_003",
+  "algo": "qlearn",
+  "params": {
+   "alpha": 0.28,
+   "gamma": 0.9,
+   "eps_end": 0.1,
+   "eps_decay_frac": 0.25,
+   "q_init": 20.0,
+   "sarsa": false
+  }
+ },
+ {
+  "cfg_id": "qlearn_004",
+  "algo": "qlearn",
+  "params": {
+   "alpha": 0.3,
+   "gamma": 0.99,
+   "eps_end": 0.1,
+   "eps_decay_frac": 0.8,
+   "q_init": 0.0,
+   "sarsa": false
+  }
+ },
+ {
+  "cfg_id": "qlearn_005",
+  "algo": "qlearn",
+  "params": {
+   "alpha": 0.11,
+   "gamma": 0.9,
+   "eps_end": 0.01,
+   "eps_decay_frac": 0.25,
+   "q_init": 0.0,
+   "sarsa": false
+  }
+ },
+ {
+  "cfg_id": "qlearn_006",
+  "algo": "qlearn",
+  "params": {
+   "alpha": 0.053,
+   "gamma": 0.999,
+   "eps_end": 0.05,
+   "eps_decay_frac": 0.25,
+   "q_init": 0.0,
+   "sarsa": true
+  }
+ },
+ {
+  "cfg_id": "qlearn_007",
+  "algo": "qlearn",
+  "params": {
+   "alpha": 0.45,
+   "gamma": 0.999,
+   "eps_end": 0.1,
+   "eps_decay_frac": 0.1,
+   "q_init": 100.0,
+   "sarsa": false
+  }
+ },
+ {
+  "cfg_id": "qlearn_008",
+  "algo": "qlearn",
+  "params": {
+   "alpha": 0.18,
+   "gamma": 0.9,
+   "eps_end": 0.1,
+   "eps_decay_frac": 0.8,
+   "q_init": 0.0,
+   "sarsa": true
+  }
+ },
+ {
+  "cfg_id": "qlearn_009",
+  "algo": "qlearn",
+  "params": {
+   "alpha": 0.11,
+   "gamma": 0.999,
+   "eps_end": 0.05,
+   "eps_decay_frac": 0.8,
+   "q_init": 100.0,
+   "sarsa": false
+  }
+ },
+ {
+  "cfg_id": "qlearn_010",
+  "algo": "qlearn",
+  "params": {
+   "alpha": 0.31,
+   "gamma": 0.9,
+   "eps_end": 0.1,
+   "eps_decay_frac": 0.1,
+   "q_init": 100.0,
+   "sarsa": false
+  }
+ },
+ {
+  "cfg_id": "qlearn_011",
+  "algo": "qlearn",
+  "params": {
+   "alpha": 0.053,
+   "gamma": 0.99,
+   "eps_end": 0.05,
+   "eps_decay_frac": 0.1,
+   "q_init": 20.0,
+   "sarsa": true
+  }
+ },
+ {
+  "cfg_id": "qlearn_012",
+  "algo": "qlearn",
+  "params": {
+   "alpha": 0.42,
+   "gamma": 0.99,
+   "eps_end": 0.05,
+   "eps_decay_frac": 0.8,
+   "q_init": 20.0,
+   "sarsa": false
+  }
+ },
+ {
+  "cfg_id": "qlearn_013",
+  "algo": "qlearn",
+  "params": {
+   "alpha": 0.034,
+   "gamma": 0.95,
+   "eps_end": 0.01,
+   "eps_decay_frac": 0.5,
+   "q_init": 100.0,
+   "sarsa": true
+  }
+ },
+ {
+  "cfg_id": "qlearn_014",
+  "algo": "qlearn",
+  "params": {
+   "alpha": 0.024,
+   "gamma": 0.9,
+   "eps_end": 0.05,
+   "eps_decay_frac": 0.8,
+   "q_init": 0.0,
+   "sarsa": true
+  }
+ },
+ {
+  "cfg_id": "qlearn_015",
+  "algo": "qlearn",
+  "params": {
+   "alpha": 0.35,
+   "gamma": 0.9,
+   "eps_end": 0.1,
+   "eps_decay_frac": 0.25,
+   "q_init": 20.0,
+   "sarsa": true
+  }
+ },
+ {
+  "cfg_id": "qlearn_016",
+  "algo": "qlearn",
+  "params": {
+   "alpha": 0.022,
+   "gamma": 0.999,
+   "eps_end": 0.05,
+   "eps_decay_frac": 0.8,
+   "q_init": 0.0,
+   "sarsa": false
+  }
+ },
+ {
+  "cfg_id": "qlearn_017",
+  "algo": "qlearn",
+  "params": {
+   "alpha": 0.091,
+   "gamma": 0.95,
+   "eps_end": 0.01,
+   "eps_decay_frac": 0.1,
+   "q_init": 100.0,
+   "sarsa": false
+  }
+ },
+ {
+  "cfg_id": "qlearn_018",
+  "algo": "qlearn",
+  "params": {
+   "alpha": 0.15,
+   "gamma": 0.9,
+   "eps_end": 0.1,
+   "eps_decay_frac": 0.5,
+   "q_init": 0.0,
+   "sarsa": true
+  }
+ },
+ {
+  "cfg_id": "qlearn_019",
+  "algo": "qlearn",
+  "params": {
+   "alpha": 0.25,
+   "gamma": 0.999,
+   "eps_end": 0.01,
+   "eps_decay_frac": 0.1,
+   "q_init": 100.0,
+   "sarsa": true
+  }
+ }
+]

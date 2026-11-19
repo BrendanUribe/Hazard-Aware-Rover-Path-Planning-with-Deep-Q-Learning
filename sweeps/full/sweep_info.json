@@ -1,0 +1,349 @@
+{
+ "argv": [
+  "scripts/sweep.py",
+  "--algo",
+  "all",
+  "--n-configs",
+  "20",
+  "--sizes",
+  "4",
+  "5",
+  "6",
+  "8",
+  "10",
+  "--budget-mult",
+  "8:2",
+  "10:4",
+  "--seeds",
+  "0",
+  "1",
+  "2",
+  "--jobs",
+  "6",
+  "--timeout-min",
+  "240",
+  "--out",
+  "sweeps/full"
+ ],
+ "args": {
+  "algo": "all",
+  "mode": "random",
+  "n_configs": 20,
+  "vary": "",
+  "seeds": [
+   0,
+   1,
+   2
+  ],
+  "sweep_seed": 0,
+  "sizes": [
+   4,
+   5,
+   6,
+   8,
+   10
+  ],
+  "p_slips": [
+   0.3
+  ],
+  "b0": 15,
+  "ppo_steps": 2000000,
+  "dqn_episodes": 10000,
+  "q_episodes": 20000,
+  "q_eval_episodes": 200,
+  "map_seed": 10000,
+  "budget_mult": [
+   "8:2",
+   "10:4"
+  ],
+  "evals": 20,
+  "eval_maps": 10,
+  "jobs": 6,
+  "timeout_min": 240.0,
+  "max_hours": 0,
+  "out": "sweeps/full",
+  "dry_run": false,
+  "summarize_only": false
+ },
+ "started": "Tue Nov 17 21:26:04 2026",
+ "python": "3.12.0 (tags/v3.12.0:0fb18b0, Oct  2 2023, 13:03:39) [MSC v.1935 64 bit (AMD64)]",
+ "torch": "2.14.1+cpu",
+ "platform": "Windows-11-10.0.26200-SP0",
+ "search_spaces": {
+  "ppo": {
+   "lr": [
+    "loguniform",
+    0.0001,
+    0.001
+   ],
+   "gamma": [
+    "choice",
+    [
+     0.99,
+     0.995,
+     0.999
+    ]
+   ],
+   "gae_lambda": [
+    "choice",
+    [
+     0.9,
+     0.95,
+     0.98
+    ]
+   ],
+   "clip": [
+    "choice",
+    [
+     0.1,
+     0.2,
+     0.3
+    ]
+   ],
+   "ent_coef": [
+    "choice",
+    [
+     0.0,
+     0.01,
+     0.03,
+     0.05,
+     0.1
+    ]
+   ],
+   "ent_decay": [
+    "choice",
+    [
+     false,
+     true
+    ]
+   ],
+   "n_envs": [
+    "choice",
+    [
+     8,
+     16,
+     32
+    ]
+   ],
+   "n_steps": [
+    "choice",
+    [
+     64,
+     128,
+     256
+    ]
+   ],
+   "batch_size": [
+    "choice",
+    [
+     128,
+     256,
+     512
+    ]
+   ],
+   "epochs": [
+    "choice",
+    [
+     3,
+     4,
+     8
+    ]
+   ],
+   "target_kl": [
+    "choice",
+    [
+     0.0,
+     0.02,
+     0.05
+    ]
+   ],
+   "reward_scale": [
+    "choice",
+    [
+     0.01,
+     0.05,
+     0.1
+    ]
+   ],
+   "hidden": [
+    "choice",
+    [
+     64,
+     128,
+     256
+    ]
+   ]
+  },
+  "dqn": {
+   "lr": [
+    "loguniform",
+    0.0001,
+    0.003
+   ],
+   "gamma": [
+    "choice",
+    [
+     0.95,
+     0.99,
+     0.999
+    ]
+   ],
+   "batch_size": [
+    "choice",
+    [
+     32,
+     64,
+     128
+    ]
+   ],
+   "buffer_size": [
+    "choice",
+    [
+     50000,
+     100000
+    ]
+   ],
+   "warmup": [
+    "choice",
+    [
+     500,
+     1000,
+     5000
+    ]
+   ],
+   "target_sync": [
+    "choice",
+    [
+     200,
+     500,
+     1000,
+     2000
+    ]
+   ],
+   "eps_end": [
+    "choice",
+    [
+     0.01,
+     0.05,
+     0.1
+    ]
+   ],
+   "eps_decay_frac": [
+    "choice",
+    [
+     0.1,
+     0.25,
+     0.5
+    ]
+   ],
+   "grad_clip": [
+    "choice",
+    [
+     1.0,
+     10.0
+    ]
+   ],
+   "hidden": [
+    "choice",
+    [
+     64,
+     128,
+     256
+    ]
+   ],
+   "double": [
+    "choice",
+    [
+     true,
+     false
+    ]
+   ]
+  },
+  "qlearn": {
+   "alpha": [
+    "loguniform",
+    0.02,
+    0.5
+   ],
+   "gamma": [
+    "choice",
+    [
+     0.9,
+     0.95,
+     0.99,
+     0.999
+    ]
+   ],
+   "eps_end": [
+    "choice",
+    [
+     0.01,
+     0.05,
+     0.1
+    ]
+   ],
+   "eps_decay_frac": [
+    "choice",
+    [
+     0.1,
+     0.25,
+     0.5,
+     0.8
+    ]
+   ],
+   "q_init": [
+    "choice",
+    [
+     0.0,
+     20.0,
+     100.0
+    ]
+   ],
+   "sarsa": [
+    "choice",
+    [
+     false,
+     true
+    ]
+   ]
+  }
+ },
+ "defaults": {
+  "ppo": {
+   "lr": 0.0003,
+   "gamma": 0.99,
+   "gae_lambda": 0.95,
+   "clip": 0.2,
+   "ent_coef": 0.01,
+   "ent_decay": false,
+   "n_envs": 8,
+   "n_steps": 128,
+   "batch_size": 256,
+   "epochs": 4,
+   "target_kl": 0.02,
+   "reward_scale": 0.05,
+   "hidden": 256
+  },
+  "dqn": {
+   "lr": 0.001,
+   "gamma": 0.99,
+   "batch_size": 64,
+   "buffer_size": 100000,
+   "warmup": 1000,
+   "target_sync": 500,
+   "eps_end": 0.05,
+   "eps_decay_frac": 0.25,
+   "grad_clip": 10.0,
+   "hidden": 256,
+   "double": true
+  },
+  "qlearn": {
+   "alpha": 0.1,
+   "gamma": 0.99,
+   "eps_end": 0.05,
+   "eps_decay_frac": 0.5,
+   "q_init": 0.0,
+   "sarsa": false
+  }
+ }
+}
