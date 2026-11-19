@@ -195,6 +195,32 @@ Without `--model` the rover moves randomly (the random baseline).
 
 Layout: `rover/env.py` (Gymnasium env), `rover/mapgen.py` (feasible random maps), `rover/dqn.py` (Double DQN agent), `rover/evaluate.py` (greedy eval on unseen maps), `rover/viz.py` (map drawing), `scripts/` (training, visualization), `tests/`.
 
+**PPO (branch `PPO`):** `rover/ppo.py` holds a PPO-Clip actor-critic with GAE (AE 696 Lecture 18), trained with
+```bash
+py scripts/train_ppo.py --iterations 500 --seed 0
+py scripts/visualize.py --seed 0 --n 3 --algo ppo --model runs/ppo_seed0/model.pt --out trained_ppo.png
+```
+One iteration collects `n_envs x n_steps` transitions, computes GAE advantages and critic targets, then runs `--epochs` minibatch passes with the clipped objective. Logs go to `runs/ppo_seed<N>/`.
+
+**Q-table baseline:** `scripts/train_qlearn.py` trains tabular Q-learning (or `--sarsa`) on ONE fixed map, with state = (row, col, battery). It is an easier problem than PPO/DQN, which are tested on unseen maps.
+
+**Sweeps and report figures:**
+```bash
+# full sweep used for the results (900 runs: 60 configs x 5 sizes x 3 seeds; ~1.5 days on a laptop)
+py scripts/sweep.py --algo all --n-configs 20 --sizes 4 5 6 8 10 --budget-mult 8:2 10:4 --seeds 0 1 2 --jobs 6 --timeout-min 240 --out sweeps/full
+# small quick version
+py scripts/sweep.py --algo all --n-configs 20 --sizes 4 5 6 8 --seeds 0 1 --jobs 4 --out sweeps/sizes
+```
+The sweep is resumable: re-run the same command to continue. To pause cleanly, create a file named `STOP` inside the output folder (delete it to resume).
+
+**Generating the report (no retraining):**
+```bash
+py scripts/sweep.py --out sweeps/full --summarize-only   # rebuild summary.csv / boundary.csv / marginals.csv
+py scripts/report.py --sweep sweeps/full                 # figures, trajectory maps, GIFs -> sweeps/full/report/
+```
+The committed `sweeps/full/*.csv|json` and `sweeps/full/report/` are the finished results. The per-run folders (`sweeps/full/runs/`, ~300 MB with model weights) are git-ignored, so `report.py` needs a local copy of them to regenerate the maps, GIFs and learning curves; `summary.csv` and the boundary/marginal tables are in the repo regardless.
+`sweep.py` tries many hyperparameter settings for PPO, DQN and Q-learning across map sizes and seeds (resumable; results in `summary.csv`, `boundary.csv`, `marginals.csv`). `report.py` turns finished runs into PNG/PDF figures (boundary plot, learning curves, outcome bars, parameter effects), trajectory maps and GIF rollouts without retraining. For a single run: `py scripts/report.py --run runs_s6b/ppo_seed0 --algo ppo --size 6 --p-slip 0.3 --b0 15`.
+
 **Double DQN:** the target is $y = r + \gamma\, Q_{target}(s', \arg\max_a Q_{online}(s', a))$, which reduces the Q-value overestimation of vanilla DQN. Vanilla DQN is kept behind `--vanilla` for an ablation.
 
 ---

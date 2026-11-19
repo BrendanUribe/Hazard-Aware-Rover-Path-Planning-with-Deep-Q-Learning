@@ -18,15 +18,21 @@ def main():
     p.add_argument("--seed", type=int, default=0)
     p.add_argument("--n", type=int, default=4, help="number of maps")
     p.add_argument("--model", default=None, help="path to model.pt (default: random policy)")
+    p.add_argument("--algo", choices=["dqn", "ppo"], default="dqn", help="which agent the model.pt belongs to")
     p.add_argument("--out", default="maps.png")
     a = p.parse_args()
 
     agent = None
     if a.model:
         import torch
-        from rover.dqn import DQNAgent, DQNConfig
-        agent = DQNAgent(RoverEnv().obs_dim, DQNConfig())
-        agent.q.load_state_dict(torch.load(a.model, map_location="cpu"))
+        if a.algo == "ppo":
+            from rover.ppo import PPOAgent, PPOConfig
+            agent = PPOAgent(RoverEnv().obs_dim, PPOConfig())
+            agent.ac.load_state_dict(torch.load(a.model, map_location="cpu"))
+        else:
+            from rover.dqn import DQNAgent, DQNConfig
+            agent = DQNAgent(RoverEnv().obs_dim, DQNConfig())
+            agent.q.load_state_dict(torch.load(a.model, map_location="cpu"))
 
     fig, axes = plt.subplots(1, a.n, figsize=(5 * a.n, 5))
     for i, ax in enumerate(axes if a.n > 1 else [axes]):
