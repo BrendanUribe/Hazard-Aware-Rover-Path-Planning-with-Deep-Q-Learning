@@ -24,30 +24,55 @@ def bfs_dist(grid: np.ndarray, src: tuple[int, int]) -> np.ndarray:
     return dist
 
 
-def is_feasible(grid: np.ndarray, b0: int, b_max: int) -> bool:
+def is_feasible(grid: np.ndarray, start: tuple[int,int], goal: tuple[int,int], b0: int, b_max: int) -> bool:
     """Optimistic (slip-free) check: goal reachable directly within b0-1 steps, or via the charger."""
-    n = grid.shape[0]
-    goal = (n - 1, n - 1)
-    d_start = bfs_dist(grid, START)
+    # n = grid.shape[0]
+    # goal = (n - 1, n - 1) # uncomment for a locked goal position 
+    # d_start = bfs_dist(grid, START) # uncomment for locked start position and comment next line
+    d_start = bfs_dist(grid, start)
+
+    # direct route without charging
     if d_start[goal] <= b0 - 1:
         return True
-    cx, cy = np.argwhere(grid == CHARGER)[0]
-    d_chg = bfs_dist(grid, (cx, cy))
-    return d_start[cx, cy] <= b0 - 1 and d_chg[goal] <= b_max - 1
+    charger_location = np.argwhere(grid == CHARGER)
+    if len(charger_location) == 0:
+        return False
+
+    cx, cy = map(int, charger_location[0])
+    d_charger = bfs_dist(grid, (cx, cy))
+    return d_start[cx, cy] <= b0 - 1 and d_charger[goal] <= b_max - 1
 
 
 def generate_map(rng: np.random.Generator, n: int = 10, p_gravel: float = 0.15, p_boulder: float = 0.08,
                  p_crater: float = 0.06, b0: int = 15, b_max: int = 20, max_tries: int = 1000) -> np.ndarray:
-    """Sample an n x n map. Start (0,0) and goal (n-1,n-1) are normal/goal cells; one charger is placed."""
+    """Sample an n x n map, various start and goal pos, one charger is placed."""
     for _ in range(max_tries):
         grid = rng.choice([NORMAL, GRAVEL, BOULDER, CRATER], size=(n, n),
                           p=[1 - p_gravel - p_boulder - p_crater, p_gravel, p_boulder, p_crater])
-        grid[START] = NORMAL
-        grid[n - 1, n - 1] = GOAL
+        # select a valid random start cell
+        valid_start = [(x,y) for x in range(n) for y in range(n) if grid[x,y] in (NORMAL,GRAVEL)]
+        start = valid_start[rng.integers(len(valid_start))]
+
+        # select valid goal (not same as start)
+        valid_goal = [cell for cell in valid_start if cell != start]
+        goal = valid_goal[rng.integers(len(valid_goal))]
+
+        # grid[START] = NORMAL
+        # grid[n - 1, n - 1] = GOAL
+        
+        # mark start and goal on map
+        grid[start] = NORMAL
+        grid[goal] = GOAL
+
+        # find free coordinates
         free = [(x, y) for x in range(n) for y in range(n)
-                if grid[x, y] in (NORMAL, GRAVEL) and (x, y) != START]
+                if grid[x, y] in (NORMAL, GRAVEL) and (x, y) not in (start,goal)]
+        if not free:
+            continue
+
+        # generate charger location    
         cx, cy = free[rng.integers(len(free))]
         grid[cx, cy] = CHARGER
-        if is_feasible(grid, b0, b_max):
-            return grid.astype(np.int8)
-    raise RuntimeError("could not generate a feasible map")
+        if is_feasible(grid, start, goal, b0, b_max):
+            return grid.astype(np.int8), start, goal
+    raise RuntimeError("Could not generate a feasible map")

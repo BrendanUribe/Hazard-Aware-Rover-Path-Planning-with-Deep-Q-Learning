@@ -22,3 +22,5 @@ def evaluate(agent, n_maps: int = 5, episodes_per_map: int = 20, seed: int = 10_
     return {"success": outcomes.count("success") / n, "crater": outcomes.count("crater") / n,
             "battery": outcomes.count("battery") / n, "timeout": outcomes.count("timeout") / n,
             "mean_steps": float(np.mean(steps)), "mean_return": float(np.mean(returns))}
+
+

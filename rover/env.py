@@ -30,8 +30,19 @@ class RoverEnv(gym.Env):
 
     def reset(self, *, seed=None, options=None):
         super().reset(seed=seed)
-        self.grid = self.fixed_map.copy() if self.fixed_map is not None else generate_map(self.np_random, **self.map_kwargs)
-        self.pos, self.battery, self.t = START, self.b0, 0
+        if self.fixed_map is not None:
+            self.grid = self.fixed_map.copy()
+            self.start = START
+            goal_pos = np.argwhere(self.grid == GOAL)[0]
+            self.goal = tuple(int(value) for value in goal_pos)
+        else:
+            self.grid, self.start, self.goal = generate_map(self.np_random, **self.map_kwargs,)
+
+        self.pos = self.start
+        self.battery = self.b0
+        self.t = 0
+        # self.grid = self.fixed_map.copy() if self.fixed_map is not None else generate_map(self.np_random, **self.map_kwargs)
+        # self.pos, self.battery, self.t = START, self.b0, 0
         return self._obs(), {}
 
     def step(self, action: int):
@@ -70,5 +81,15 @@ class RoverEnv(gym.Env):
         sym = ".~#XCG"
         rows = []
         for x in range(self.n):
-            rows.append("".join("R" if (x, y) == self.pos else sym[self.grid[x, y]] for y in range(self.n)))
+            row = ""
+            for y in range(self.n):
+                if (x,y) == self.pos:
+                    symbol = "R"
+                elif (x,y) == self.start:
+                    symbol = "S"
+                else:
+                    symbol = sym[self.grid[x,y]]
+                row += symbol
+            rows.append(row)
+            # rows.append("".join("R" if (x, y) == self.pos else sym[self.grid[x, y]] for y in range(self.n)))
         return "\n".join(rows) + f"\nbattery={self.battery}"
