@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.patches import Rectangle
+from matplotlib.patches import Rectangle, Patch
 from rover.mapgen import (BOULDER,CHARGER,CRATER,GOAL,GRAVEL,NORMAL,START)
 
 
@@ -35,8 +35,8 @@ def plot_map(env, trajectory=None, ax=None):
     ax.set_xlim(-0.5, n - 0.5)
     ax.set_ylim(n - 0.5, -0.5)
 
-    ax.set_xticks(range(n), labels=range(1, n+1))
-    ax.set_yticks(range(n), labels=range(1, n+1))
+    ax.set_xticks(range(n), labels=range(0, n))
+    ax.set_yticks(range(n), labels=range(0, n))
 
     ax.set_xlabel("Column")
     ax.set_ylabel("Row")
@@ -54,11 +54,12 @@ def plot_map(env, trajectory=None, ax=None):
             ax.add_patch(Rectangle((y - 0.5, x - 0.5),1,1,facecolor=color,edgecolor="white",linewidth=1.5,))
            
             if terrain in labels:
-                ax.text(y, x, labels[terrain], ha="center", va="center", color="white", fontsize=9, fontweight="bold")
+                label_color = "#de212d" if terrain == CRATER else "white"
+                ax.text(y, x, labels[terrain], ha="center", va="center", color=label_color, fontsize=9, fontweight="bold")
 
     # Plot the random start position
     start_x, start_y = env.start
-    ax.add_patch(Rectangle((start_y-0.5,start_x-0.5),1,1,facecolor=start_color,edgecolor="white",linewidth=1.5,))
+    ax.add_patch(Rectangle((start_y-0.5,start_x-0.5),1,1,facecolor=start_color,edgecolor="white",linewidth=1.5,)) # red start pos
     ax.text(start_y, start_x, "Start", ha="center", va="center", color="white", fontsize=9, fontweight="bold")
     
     # Plot the rover's current position
@@ -73,8 +74,11 @@ def plot_map(env, trajectory=None, ax=None):
         ax.plot(path_x,path_y,color=trajectory_color,linewidth=2.5,marker="o",markersize=3,label="Trajectory",zorder=2)
 
 
+
+    terrain_names = {NORMAL: "normal",GRAVEL: "gravel (slip)",BOULDER: "boulder",CRATER: "crater",CHARGER: "charger",GOAL: "goal"}
+    terrain_handles = [Patch(facecolor=colors[terrain], label=terrain_names[terrain]) for terrain in terrain_names]
     ax.set_title(f"Lunar Rover Map | Battery: {env.battery}", color = colors[3], weight = "bold")
-    ax.legend(loc="upper left", bbox_to_anchor=(1.02, 1))
+    ax.legend(handles=terrain_handles, loc="upper left", bbox_to_anchor=(1.02, 1))
     plt.tight_layout()
     
     return ax
